@@ -1,0 +1,64 @@
+#https://leetcode.com/problems/word-search/description/
+
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        
+        int n = board.length;
+        int m = board[0].length;
+
+        for(int ind=0;ind<n;ind++){
+            for(int ind1=0;ind1<m;ind1++){
+                boolean[][] visitArr = new boolean[n][m];
+                if(traverse(board,n,m,ind,ind1,0,word,visitArr)){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+    boolean traverse(char[][] board,int n,int m,int r,int c,int pos,String word,boolean[][] visitArr){
+
+
+
+        char ch = word.charAt(pos);
+        
+        if(board[r][c] != ch){
+            return false;
+        }
+
+       // System.out.println(ch);
+        visitArr[r][c]=true;
+        if(pos == word.length()-1){
+            return true;
+        }       
+
+        int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
+
+        for(int ind=0;ind<4;ind++){
+            int new_r = r + dir[ind][0];
+            int new_c = c + dir[ind][1];
+            
+            if(isValid(board,n,m,new_r,new_c,visitArr)){
+                if(traverse(board,n,m,new_r,new_c,pos+1,word,visitArr)){
+                    return true;
+                }
+                visitArr[new_r][new_c]=false;
+            }
+        }
+
+
+        return false;
+    }
+
+    boolean isValid(char[][] board,int n,int m,int r,int c,boolean[][] visitArr){
+
+        return r >=0 && r < n && c >=0 && c < m && !visitArr[r][c];
+
+
+    }
+
+
+}

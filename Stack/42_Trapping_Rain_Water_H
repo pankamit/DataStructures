@@ -1,1 +1,48 @@
+##https://leetcode.com/problems/trapping-rain-water/description/
 
+
+class Solution {
+    public int trap(int[] arr) {
+        
+        int n = arr.length;
+
+        int[] lArr = new int[n];
+        int[] rArr = new int[n];
+
+        //Stack<Integer> stack = new Stack<>();
+        //stack.push(Integer.MIN_VALUE);
+        int max = 0;
+        rArr[n-1]=arr[n-1];
+        max = arr[n-1];
+        for(int ind=n-2;ind>=0;ind--){
+            
+            if(arr[ind] > max){
+                max=arr[ind];
+            }
+            rArr[ind]=max;
+        }
+
+        lArr[0]=arr[0];
+        max = arr[0];
+
+        for(int ind=1 ;ind<n;ind++){
+            //lArr[ind]=max;
+            if(arr[ind] > max){
+                max=arr[ind];
+            }
+            lArr[ind]=max;
+
+
+        }
+
+       // System.out.println(Arrays.toString(lArr));
+       // System.out.println(Arrays.toString(rArr));
+        int sum = 0;
+        for(int ind=0;ind<n;ind++){
+           sum += Math.min(lArr[ind],rArr[ind])-arr[ind];
+        }
+
+        return sum;
+
+    }
+}

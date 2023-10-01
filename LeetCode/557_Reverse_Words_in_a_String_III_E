@@ -1,0 +1,38 @@
+https://leetcode.com/problems/reverse-words-in-a-string-iii/description/?envType=daily-question&envId=2023-10-01
+
+class Solution {
+    public String reverseWords(String s) {
+        int n = s.length();
+
+        String res = "";
+
+        String[] sArr = s.split(" ");
+        for(String str: sArr){
+            res += reverseString(str) + " ";
+        }
+
+        return res.trim();
+
+    }
+
+    String reverseString(String str){
+
+        int low = 0;
+        int high = str.length()-1;
+
+        String lStr = "";
+        String rStr = "";
+        while(low < high){
+            lStr += str.charAt(high);
+            rStr = str.charAt(low)+rStr;
+            low++;
+            high--;
+        }
+
+        if(low == high){
+            lStr += str.charAt(low);
+        }
+
+        return lStr+rStr;
+    }
+}

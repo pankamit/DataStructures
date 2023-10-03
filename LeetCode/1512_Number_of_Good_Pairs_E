@@ -1,0 +1,25 @@
+#https://leetcode.com/problems/number-of-good-pairs/description/?envType=daily-question&envId=2023-10-03
+
+class Solution {
+    public int numIdenticalPairs(int[] arr) {
+        
+        int n = arr.length;
+
+        HashMap<Integer,Integer> hm = new HashMap<>();
+
+        int sum = 0;
+        for(int ind=0;ind<n;ind++){
+            if(!hm.containsKey(arr[ind])){
+                hm.put(arr[ind],1);
+            }else{
+                int freq = hm.get(arr[ind]);
+                sum += freq;
+                hm.put(arr[ind],freq+1);
+            }
+        }
+
+
+        return sum;
+
+    }
+}
